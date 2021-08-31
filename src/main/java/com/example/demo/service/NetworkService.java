@@ -1,0 +1,34 @@
+package com.example.demo.service;
+import com.example.demo.service.model.request.NetworkRequestDTO;
+import com.example.demo.service.model.response.DataResponseDTO;
+import com.example.demo.service.model.response.NetworkResponseDTO;
+import com.example.demo.utils.Neurona;
+import org.apache.log4j.Logger;
+
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+@Service
+public class NetworkService {
+	
+	final static Logger logger = Logger.getLogger(NetworkService.class);
+
+	public DataResponseDTO executeNetworkMultiLayer(NetworkRequestDTO networkRequestDTO)  {
+		List<Double> input = new ArrayList<>();
+
+		for(int i =0; i< networkRequestDTO.getInput().size() ; i++) {
+			input.add(new Random().nextDouble());
+		}
+
+		Neurona n = new Neurona(networkRequestDTO.getInput(), input);
+
+		DataResponseDTO   dataResponseDTO= new DataResponseDTO( );
+		NetworkResponseDTO networkResponseDTO = new NetworkResponseDTO(networkRequestDTO.getInput(), input, n.getTangent());
+		dataResponseDTO.setData(networkResponseDTO);
+		return dataResponseDTO;
+
+	}
+}
