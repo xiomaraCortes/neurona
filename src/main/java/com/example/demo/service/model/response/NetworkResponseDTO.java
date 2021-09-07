@@ -12,7 +12,7 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class NetworkResponseDTO {
 
-    private List<Integer> input;
+    private List<Double> input;
 
     private List<Double> height;
 
@@ -21,17 +21,17 @@ public class NetworkResponseDTO {
     public NetworkResponseDTO() {
     }
 
-    public NetworkResponseDTO(List<Integer> input, List<Double> height, Double tangent) {
+    public NetworkResponseDTO(List<Double> input, List<Double> height, Double tangent) {
         this.input = input;
         this.height = height;
         this.tangent = tangent;
     }
 
-    public List<Integer> getInput() {
+    public List<Double> getInput() {
         return input;
     }
 
-    public void setInput(List<Integer> input) {
+    public void setInput(List<Double> input) {
         this.input = input;
     }
 

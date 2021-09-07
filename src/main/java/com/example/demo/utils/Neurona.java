@@ -4,11 +4,11 @@ import java.util.List;
 
 public class Neurona {
 
-    List<Integer> input;
+    List<Double> input;
 
     List<Double> weight;
 
-    public Neurona(List<Integer> input, List<Double> weight) {
+    public Neurona(List<Double> input, List<Double> weight) {
         this.input = input;
         this.weight = weight;
     }

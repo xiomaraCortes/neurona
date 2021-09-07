@@ -8,20 +8,20 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class NetworkRequestDTO {
 
-    private List<Integer> input;
+    private List<Double> input;
 
     public NetworkRequestDTO() {
     }
 
-    public NetworkRequestDTO(List<Integer> input) {
+    public NetworkRequestDTO(List<Double> input) {
         this.input = input;
     }
 
-    public List<Integer> getInput() {
+    public List<Double> getInput() {
         return input;
     }
 
-    public void setInput(List<Integer> input) {
+    public void setInput(List<Double> input) {
         this.input = input;
     }
 }
