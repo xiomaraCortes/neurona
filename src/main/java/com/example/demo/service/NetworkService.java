@@ -17,16 +17,11 @@ public class NetworkService {
 	final static Logger logger = Logger.getLogger(NetworkService.class);
 
 	public DataResponseDTO executeNetworkMultiLayer(NetworkRequestDTO networkRequestDTO)  {
-		List<Double> input = new ArrayList<>();
 
-		for(int i =0; i< networkRequestDTO.getInput().size() ; i++) {
-			input.add(new Random().nextDouble());
-		}
-
-		Neurona n = new Neurona(networkRequestDTO.getInput(), input);
+		Neurona n = new Neurona(networkRequestDTO.getInput(), networkRequestDTO.getError(),networkRequestDTO.getKnowledgeFactor());
 
 		DataResponseDTO   dataResponseDTO= new DataResponseDTO( );
-		NetworkResponseDTO networkResponseDTO = new NetworkResponseDTO(networkRequestDTO.getInput(), input, n.getTangent());
+		NetworkResponseDTO networkResponseDTO = new NetworkResponseDTO(networkRequestDTO.getInput(), n.getWeight(), n.getTangent());
 		dataResponseDTO.setData(networkResponseDTO);
 		return dataResponseDTO;
 
