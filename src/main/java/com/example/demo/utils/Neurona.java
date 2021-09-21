@@ -58,10 +58,10 @@ public class Neurona {
     }
 
     public int resolver(double value) {
-        if(value >= 0){
-            return 1;
+        if(input.get(0)  == -1 && input.get(1) == - 1){
+            return -1;
         }
-        return -1;
+        return 1;
     }
 
     public List<Double> getWeight() {
