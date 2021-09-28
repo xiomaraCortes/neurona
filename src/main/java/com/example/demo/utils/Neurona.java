@@ -22,6 +22,7 @@ public class Neurona {
     }
 
     public double getTangent() {
+        checkTheOutputs();
         String dto = "-1,-1,-1,-1,-1\n"
                 + "-1,-1,-1,1,-1\n"
                 + "-1,-1,1,-1,-1\n"
