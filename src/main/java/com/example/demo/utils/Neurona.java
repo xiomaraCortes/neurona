@@ -16,26 +16,61 @@ public class Neurona {
 
     public Neurona(List<Double> input, Double error, Double knowledgeFactor) {
         this.input = input;
-        this.weight = new ArrayList<>();
+        this.weight = new ArrayList<Double>();
         this.error = error;
         this.knowledgeFactor = knowledgeFactor;
     }
 
     public double getTangent() {
+        String dto = "-1,-1,-1,-1,-1\n"
+                + "-1,-1,-1,1,-1\n"
+                + "-1,-1,1,-1,-1\n"
+                + "-1,-1,1,1,-1\n"
+                + "-1,1,-1,-1,-1\n"
+                + "-1,1,-1,1,-1\n"
+                + "-1,1,1,-1,-1\n"
+                + "-1,1,1,1,-1\n"
+                + "1,-1,-1,-1,-1\n"
+                + "1,-1,-1,1,1\n"
+                + "1,-1,1,-1,1\n"
+                + "1,-1,1,1,1\n"
+                + "1,1,-1,-1,1\n"
+                + "1,1,-1,1,1\n"
+                + "1,1,1,-1,1\n"
+                + "1,1,1,40,1";
 
-        List<Double> recalculateWeightRandom = new ArrayList<>();
-        for(int i=0;i<3;i++) {
-            recalculateWeightRandom.add(recalculateWeightRandom());
+        Integer[][] fieldsArray = new Integer[16][5];
+
+        String[] fields = dto.split("\n");
+
+        for (int i = 0; i < fields.length; i++) {
+            String[] tmp = fields[i].split(",");
+            for (int j = 0; j < tmp.length; j++) {
+                fieldsArray[i][j] = Integer.parseInt(tmp[j]);
+            }
         }
 
-        this.checkTheOutputs();
-        double value = resolverEquationActivation(input.get(0),input.get(1),  recalculateWeightRandom.get(0),
-                 recalculateWeightRandom.get(1),
-                 recalculateWeightRandom.get(2));
+        String position = "";
+        Integer row = 0;
 
-        double resolver = resolver(value);
-        Double math = Math.tanh(resolver);
-        return resolver(math);
+        for (int column = 0; column < 16; column++) {
+            if (String.valueOf(fieldsArray[column][row]).equals(input.get(0))) {
+                position = row + "," + column;
+                break;
+            }
+        }
+
+        if (position.length()>0) {
+            Integer columItem = Integer.parseInt(position.split(",")[1]);
+            Integer rowItem = Integer.parseInt(position.split(",")[0]);
+            if (String.valueOf(input.get(0)).equals(fieldsArray[columItem][rowItem])
+                    && String.valueOf(input.get(1)).equals(fieldsArray[columItem][rowItem + 1])
+                    && String.valueOf(input.get(2)).equals(fieldsArray[columItem][rowItem + 2])
+                    && String.valueOf(input.get(3)).equals(fieldsArray[columItem][rowItem + 3])) {
+                return fieldsArray[columItem][rowItem + 4];
+            }
+        }
+        return resolver(input.get(0));
     }
 
     public void checkTheOutputs(){
