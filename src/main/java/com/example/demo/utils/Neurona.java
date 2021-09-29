@@ -48,35 +48,41 @@ public class Neurona {
         for (int i = 0; i < fields.length; i++) {
             String[] tmp = fields[i].split(",");
             for (int j = 0; j < tmp.length; j++) {
-
                 fieldsArray[i][j] = Double.parseDouble(tmp[j]);
             }
         }
 
-        String position = "";
-        Integer row = 0;
+        List<String> position = new ArrayList<>();
 
-        for (int column = 0; column < 16; column++) {
-
-            if (Objects.equals(fieldsArray[column][row], input.get(0))) {
-                position = row + "," + column;
-                break;
+        for (Double input1 : input) {
+            for (int column = 0; column < 16; column++) {
+                if (Objects.equals(fieldsArray[column][0], input1)) {
+                    position.add(0 + "," + column);
+                }
             }
+            break;
         }
 
-
-        if (position.length() > 0) {
-            Integer columItem = Integer.parseInt(position.split(",")[1]);
-            Integer rowItem = Integer.parseInt(position.split(",")[0]);
-            if (Objects.equals(input.get(0), fieldsArray[columItem][rowItem])
-                    && Objects.equals(input.get(1), fieldsArray[columItem][rowItem + 1])
-                    && Objects.equals(input.get(2), fieldsArray[columItem][rowItem + 2])
-                    && Objects.equals(input.get(3), fieldsArray[columItem][rowItem + 3])) {
-                return fieldsArray[columItem][rowItem + 4];
+        for (int i = 0; i < position.size(); i++) {
+            String item = position.get(i);
+            Integer columItem = Integer.parseInt(item.split(",")[1]);
+            Integer rowItem = Integer.parseInt(item.split(",")[0]);
+            if (checkFirstItem(input, fieldsArray, columItem, rowItem) != -999.9) {
+                return checkFirstItem(input, fieldsArray, columItem, rowItem);
             }
-        }
 
+        }
         return resolver(input.get(0));
+    }
+
+    private  Double checkFirstItem(List<Double> input, Double[][] fieldsArray, Integer columItem, Integer rowItem) {
+        if (Objects.equals(input.get(0), fieldsArray[columItem][rowItem])
+                && Objects.equals(input.get(1), fieldsArray[columItem][rowItem + 1])
+                && Objects.equals(input.get(2), fieldsArray[columItem][rowItem + 2])
+                && Objects.equals(input.get(3), fieldsArray[columItem][rowItem + 3])) {
+            return fieldsArray[columItem][rowItem + 4];
+        }
+        return -999.9;
     }
 
     public void checkTheOutputs(){
