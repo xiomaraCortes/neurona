@@ -65,10 +65,10 @@ public class Neurona {
 
         for (int i = 0; i < position.size(); i++) {
             String item = position.get(i);
-            Integer columItem = Integer.parseInt(item.split(",")[1]);
+            Integer columnItem = Integer.parseInt(item.split(",")[1]);
             Integer rowItem = Integer.parseInt(item.split(",")[0]);
-            if (checkFirstItem(input, fieldsArray, columItem, rowItem) != -999.9) {
-                return checkFirstItem(input, fieldsArray, columItem, rowItem);
+            if (checkFirstItem(input, fieldsArray, columnItem, rowItem) != -999.9) {
+                return checkFirstItem(input, fieldsArray, columnItem, rowItem);
             }
 
         }
