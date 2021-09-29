@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 public class Neurona {
@@ -23,31 +24,32 @@ public class Neurona {
 
     public double getTangent() {
         checkTheOutputs();
-        String dto = "-1,-1,-1,-1,-1\n"
-                + "-1,-1,-1,1,-1\n"
-                + "-1,-1,1,-1,-1\n"
-                + "-1,-1,1,1,-1\n"
-                + "-1,1,-1,-1,-1\n"
-                + "-1,1,-1,1,-1\n"
-                + "-1,1,1,-1,-1\n"
-                + "-1,1,1,1,-1\n"
-                + "1,-1,-1,-1,-1\n"
-                + "1,-1,-1,1,1\n"
-                + "1,-1,1,-1,1\n"
-                + "1,-1,1,1,1\n"
-                + "1,1,-1,-1,1\n"
-                + "1,1,-1,1,1\n"
-                + "1,1,1,-1,1\n"
-                + "1,1,1,40,1";
+        String dto = "-1.0,-1.0,-1.0,-1.0,-1.0\n"
+                + "-1.0,-1.0,-1.0,1.0,-1.0\n"
+                + "-1.0,-1.0,1.0,-1.0,-1.0\n"
+                + "-1.0,-1.0,1.0,1.0,-1.0\n"
+                + "-1.0,1.0,-1.0,-1.0,-1.0\n"
+                + "-1.0,1.0,-1.0,1.0,-1.0\n"
+                + "-1.0,1.0,1.0,-1.0,-1.0\n"
+                + "-1.0,1.0,1.0,1.0,-1.0\n"
+                + "1.0,-1.0,-1.0,-1.0,-1.0\n"
+                + "1.0,-1.0,-1.0,1.0,1.0\n"
+                + "1.0,-1.0,1.0,-1.0,1.0\n"
+                + "1.0,-1.0,1.0,1.0,1.0\n"
+                + "1.0,1.0,-1.0,-1.0,1.0\n"
+                + "1.0,1.0,-1.0,1.0,1.0\n"
+                + "1.0,1.0,1.0,-1.0,1.0\n"
+                + "1.0,1.0,1.0,1.0,1.0";
 
-        Integer[][] fieldsArray = new Integer[16][5];
+        Double[][] fieldsArray = new Double[16][5];
 
         String[] fields = dto.split("\n");
 
         for (int i = 0; i < fields.length; i++) {
             String[] tmp = fields[i].split(",");
             for (int j = 0; j < tmp.length; j++) {
-                fieldsArray[i][j] = Integer.parseInt(tmp[j]);
+
+                fieldsArray[i][j] = Double.parseDouble(tmp[j]);
             }
         }
 
@@ -55,22 +57,25 @@ public class Neurona {
         Integer row = 0;
 
         for (int column = 0; column < 16; column++) {
-            if (String.valueOf(fieldsArray[column][row]).equals(input.get(0))) {
+
+            if (Objects.equals(fieldsArray[column][row], input.get(0))) {
                 position = row + "," + column;
                 break;
             }
         }
 
-        if (position.length()>0) {
+
+        if (position.length() > 0) {
             Integer columItem = Integer.parseInt(position.split(",")[1]);
             Integer rowItem = Integer.parseInt(position.split(",")[0]);
-            if (String.valueOf(input.get(0)).equals(fieldsArray[columItem][rowItem])
-                    && String.valueOf(input.get(1)).equals(fieldsArray[columItem][rowItem + 1])
-                    && String.valueOf(input.get(2)).equals(fieldsArray[columItem][rowItem + 2])
-                    && String.valueOf(input.get(3)).equals(fieldsArray[columItem][rowItem + 3])) {
+            if (Objects.equals(input.get(0), fieldsArray[columItem][rowItem])
+                    && Objects.equals(input.get(1), fieldsArray[columItem][rowItem + 1])
+                    && Objects.equals(input.get(2), fieldsArray[columItem][rowItem + 2])
+                    && Objects.equals(input.get(3), fieldsArray[columItem][rowItem + 3])) {
                 return fieldsArray[columItem][rowItem + 4];
             }
         }
+
         return resolver(input.get(0));
     }
 
